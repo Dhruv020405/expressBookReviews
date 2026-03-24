@@ -51,5 +51,14 @@ public_users.get('/review/:isbn', function (req, res) {
   const isbn = req.params.isbn;
   return res.status(200).json(books[isbn].reviews);
 });
+public_users.get('/isbn/:isbn', async function (req, res) {
+  const isbn = req.params.isbn;
 
+  try {
+    const response = await axios.get('http://localhost:5000/');
+    return res.status(200).json(response.data[isbn]);
+  } catch (error) {
+    return res.status(500).json({message: "Error fetching book"});
+  }
+});
 module.exports.general = public_users;
